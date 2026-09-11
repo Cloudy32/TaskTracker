@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    cors_allowed_origins: list[str] = ["http://127.0.0.1:3000"]
+    cors_allowed_origins: list[str]
 
     model_config = SettingsConfigDict(
         env_file=".env",

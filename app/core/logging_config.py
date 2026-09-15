@@ -1,5 +1,6 @@
 import logging
 
+
 def configure_logging():
     root_logger = logging.getLogger()
     if not root_logger.handlers:
@@ -7,5 +8,6 @@ def configure_logging():
             level=logging.INFO,
             format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
         )
+
 
 logging.getLogger("app").setLevel(logging.INFO)

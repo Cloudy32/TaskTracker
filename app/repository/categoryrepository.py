@@ -9,7 +9,7 @@ class CategoryRepository:
         self.db = db
 
     def get_all(self) -> list[Category]:
-        return self.db.scalars(select(Category)).all()
+        return list(self.db.scalars(select(Category)).all())
 
     def get_by_id(self, category_id: str) -> Category | None:
         return self.db.get(Category, category_id)

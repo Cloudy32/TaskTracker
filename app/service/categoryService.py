@@ -1,8 +1,11 @@
 from sqlalchemy.orm import Session
 
 from app.repository.categoryrepository import CategoryRepository
-
-from app.schema.categorySchemas import CategorySchema, CategoryCreateSchema, CategoryUpdateSchema
+from app.schema.categorySchemas import (
+    CategoryCreateSchema,
+    CategorySchema,
+    CategoryUpdateSchema,
+)
 from exceptions.exceptions import CategoryNotFoundException
 
 
@@ -20,21 +23,31 @@ class CategoryService:
         self.db.commit()
         return CategorySchema.model_validate(new_category)
 
-    def update_category(self, category_id: str, category: CategoryUpdateSchema) -> CategorySchema:
-        try:
-            category_for_update = self.category_repository.get_by_id(category_id=category_id)
-        except Exception:
+    def update_category(
+        self, category_id: str, category: CategoryUpdateSchema
+    ) -> CategorySchema:
+
+        category_for_update = self.category_repository.get_by_id(
+            category_id=category_id
+        )
+
+        if category_for_update is None:
             raise CategoryNotFoundException(f"Категория с ID {category_id} не найдена")
+
         if category.name is not None:
             category_for_update.name = category.name
 
         self.db.commit()
         return CategorySchema.model_validate(category_for_update)
 
-    def delete_category(self, category_id: str ) -> None:
-        try:
-            category_for_delete = self.category_repository.get_by_id(category_id=category_id)
-        except Exception:
+    def delete_category(self, category_id: str) -> None:
+
+        category_for_delete = self.category_repository.get_by_id(
+            category_id=category_id
+        )
+
+        if category_for_delete is None:
             raise CategoryNotFoundException(f"Категория с ID {category_id} не найдена")
+
         self.category_repository.delete(category_for_delete)
         self.db.commit()

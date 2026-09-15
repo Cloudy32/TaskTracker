@@ -4,12 +4,10 @@ from time import perf_counter
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routers.category import category_router
+from app.api.routers.task import task_router
 from app.core.config import get_settings
 from app.core.logging_config import configure_logging
-
-from app.api.routers.task import task_router
-from app.api.routers.category import category_router
-
 
 configure_logging()
 
@@ -30,6 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True,
 )
+
 
 @app.middleware("http")
 async def log_request(request: Request, call_next) -> Response:
@@ -60,4 +59,3 @@ async def log_request(request: Request, call_next) -> Response:
         duration_ms,
     )
     return response
-

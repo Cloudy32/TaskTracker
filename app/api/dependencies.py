@@ -9,5 +9,6 @@ from app.service.taskService import TaskService
 def get_task_service(db: Session = Depends(get_db)):
     return TaskService(db=db)
 
+
 def get_categories_service(db: Session = Depends(get_db)):
     return CategoryService(db=db)

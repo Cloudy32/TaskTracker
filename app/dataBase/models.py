@@ -1,6 +1,6 @@
-from app.dataBase.base import Base
-
 from sqlalchemy.orm import Mapped, mapped_column
+
+from app.dataBase.base import Base
 
 
 class Task(Base):
@@ -8,6 +8,7 @@ class Task(Base):
 
     title: Mapped[str]
     completed: Mapped[bool] = mapped_column(default=False)
+
 
 class Category(Base):
     __tablename__ = "categories"

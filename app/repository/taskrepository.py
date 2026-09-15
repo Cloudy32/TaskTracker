@@ -9,7 +9,7 @@ class TaskRepository:
         self.db = db
 
     def get_all(self) -> list[Task]:
-        return self.db.scalars(select(Task)).all()
+        return list(self.db.scalars(select(Task)).all())
 
     def get_by_id(self, task_id: str) -> Task | None:
         return self.db.get(Task, task_id)

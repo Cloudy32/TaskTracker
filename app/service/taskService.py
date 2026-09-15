@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.repository.taskrepository import TaskRepository
-
-from app.schema.taskSchemas import TaskSchema, TaskCreateSchema, TaskUpdateSchema
+from app.schema.taskSchemas import TaskCreateSchema, TaskSchema, TaskUpdateSchema
 from exceptions.exceptions import TaskNotFoundException
 
 
@@ -34,7 +33,7 @@ class TaskService:
         self.db.commit()
         return TaskSchema.model_validate(task_for_update)
 
-    def delete_task(self, task_id: str ) -> None:
+    def delete_task(self, task_id: str) -> None:
         task_for_delete = self.task_repository.get_by_id(task_id=task_id)
 
         if not task_for_delete:
